@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Christmas & New Year Countdown</title>
   <style>
     body { font-family: Arial, sans-serif; text-align: center; background-color: #f0f8ff; color: #333; padding: 50px; }
@@ -11,46 +13,49 @@
   </style>
 </head>
 <body>
-  <h1>Christmas & New Year Countdown</h1>
-  <div id="christmasCountdown"></div>
-  <div id="newYearCountdown"></div>
 
-  <div class="creator">
-    <p>Creator:</p>
-    <img src="https://i.imgur.com/rO0fN3x.jpeg" alt="Ashwin Sharma">
-    <p>Ashwin Sharma</p>
-  </div>
+<h1>Christmas & New Year Countdown</h1>
+<div id="countdown">Loading...</div>
 
-  <script>
-    function updateCountdown() {
-      const now = new Date();
+<div class="creator">
+  <p>Creator:</p>
+  <img src="https://i.imgur.com/rO0fN3x.jpeg" alt="Ashwin Sharma">
+  <p>Ashwin Sharma</p>
+</div>
 
-      const christmas = new Date(now.getFullYear(), 11, 25); // Dec 25
-      const newYear = new Date(now.getFullYear() + 1, 0, 1); // Jan 1 next year
+<script>
+function updateCountdown() {
+    const now = new Date();
+    const christmas = new Date(now.getFullYear(), 11, 25); // Dec 25
+    const newYear = new Date(now.getFullYear() + 1, 0, 1); // Jan 1 next year
 
-      let diffChristmas = christmas - now;
-      let diffNewYear = newYear - now;
+    let target;
+    let label;
 
-      let cDays = Math.floor(diffChristmas / (1000 * 60 * 60 * 24));
-      let cHours = Math.floor((diffChristmas / (1000 * 60 * 60)) % 24);
-      let cMinutes = Math.floor((diffChristmas / (1000 * 60)) % 60);
-      let cSeconds = Math.floor((diffChristmas / 1000) % 60);
-
-      let nyDays = Math.floor(diffNewYear / (1000 * 60 * 60 * 24));
-      let nyHours = Math.floor((diffNewYear / (1000 * 60 * 60)) % 24);
-      let nyMinutes = Math.floor((diffNewYear / (1000 * 60)) % 60);
-      let nySeconds = Math.floor((diffNewYear / 1000) % 60);
-
-      document.getElementById('christmasCountdown').textContent =
-        `${cDays} days, ${cHours} hours, ${cMinutes} minutes, ${cSeconds} seconds until Christmas!`;
-
-      document.getElementById('newYearCountdown').textContent =
-        `${nyDays} days, ${nyHours} hours, ${nyMinutes} minutes, ${nySeconds} seconds until New Year!`;
+    if (now < christmas) {
+        target = christmas;
+        label = "Christmas!";
+    } else if (now < newYear) {
+        target = newYear;
+        label = "New Year!";
+    } else {
+        // After Jan 1, countdown to next year's Christmas
+        target = new Date(now.getFullYear() + 1, 11, 25);
+        label = "Christmas!";
     }
 
-    setInterval(updateCountdown, 1000);
-    updateCountdown();
-  </script>
+    const diff = target - now;
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    document.getElementById('countdown').textContent = `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds until ${label}`;
+}
+
+setInterval(updateCountdown, 1000);
+updateCountdown();
+</script>
+
 </body>
 </html>
-
