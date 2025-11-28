@@ -36,35 +36,37 @@
 
 <script>
 function updateCountdowns() {
-  const now = new Date();
+    const now = new Date();
 
-  // Christmas
-  const christmas = new Date(now.getFullYear(), 11, 25); // Dec 25
-  let christmasDiff = christmas - now;
-  if (christmasDiff < 0) {
-    christmasDiff = new Date(now.getFullYear() + 1, 11, 25) - now; // next year
-  }
-  const christmasDays = Math.floor(christmasDiff / (1000 * 60 * 60 * 24));
-  const christmasHours = Math.floor((christmasDiff / (1000 * 60 * 60)) % 24);
-  const christmasMinutes = Math.floor((christmasDiff / (1000 * 60)) % 60);
-  const christmasSeconds = Math.floor((christmasDiff / 1000) % 60);
-  document.getElementById('christmasCountdown').textContent =
-    `${christmasDays} days, ${christmasHours} hours, ${christmasMinutes} minutes, ${christmasSeconds} seconds until Christmas!`;
+    // ---- Christmas Countdown ----
+    let christmas = new Date(now.getFullYear(), 11, 25); // Dec 25
+    if (now > christmas) { // after Dec 25
+        christmas = new Date(now.getFullYear() + 1, 11, 25);
+    }
+    const christmasDiff = christmas - now;
+    const christmasDays = Math.floor(christmasDiff / (1000 * 60 * 60 * 24));
+    const christmasHours = Math.floor((christmasDiff / (1000 * 60 * 60)) % 24);
+    const christmasMinutes = Math.floor((christmasDiff / (1000 * 60)) % 60);
+    const christmasSeconds = Math.floor((christmasDiff / 1000) % 60);
+    document.getElementById('christmasCountdown').textContent =
+        `${christmasDays}d ${christmasHours}h ${christmasMinutes}m ${christmasSeconds}s until Christmas!`;
 
-  // New Year
-  const newYear = new Date(now.getFullYear() + 1, 0, 1); // Jan 1 next year
-  const newYearDiff = newYear - now;
-  const newYearDays = Math.floor(newYearDiff / (1000 * 60 * 60 * 24));
-  const newYearHours = Math.floor((newYearDiff / (1000 * 60 * 60)) % 24);
-  const newYearMinutes = Math.floor((newYearDiff / (1000 * 60)) % 60);
-  const newYearSeconds = Math.floor((newYearDiff / 1000) % 60);
-  document.getElementById('newYearCountdown').textContent =
-    `${newYearDays} days, ${newYearHours} hours, ${newYearMinutes} minutes, ${newYearSeconds} seconds until New Year!`;
+    // ---- New Year Countdown ----
+    let newYear = new Date(now.getFullYear() + 1, 0, 1); // Jan 1 next year
+    const newYearDiff = newYear - now;
+    const newYearDays = Math.floor(newYearDiff / (1000 * 60 * 60 * 24));
+    const newYearHours = Math.floor((newYearDiff / (1000 * 60 * 60)) % 24);
+    const newYearMinutes = Math.floor((newYearDiff / (1000 * 60)) % 60);
+    const newYearSeconds = Math.floor((newYearDiff / 1000) % 60);
+    document.getElementById('newYearCountdown').textContent =
+        `${newYearDays}d ${newYearHours}h ${newYearMinutes}m ${newYearSeconds}s until New Year!`;
 }
 
+// Update every second
 setInterval(updateCountdowns, 1000);
 updateCountdowns();
 </script>
 
 </body>
 </html>
+
